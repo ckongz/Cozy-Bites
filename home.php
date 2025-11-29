@@ -3,6 +3,8 @@
 <?php
 /* 
    Cozy Bites - Home Page
+   Name: Sophia Casey M. Ong
+   Section: WD - 203 
 */
 
 // Shop variables
@@ -282,3 +284,4 @@ if (!$is_open) {
 </html>
 
 <?php include 'includes/footer.php'; ?>
+
