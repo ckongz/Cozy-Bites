@@ -1,4 +1,9 @@
 <?php include 'includes/header.php'; ?>
+/* 
+   Home Page 
+   Name: Sophia Casey M. Ong
+   Section: WD - 203 
+*/
 
 <?php
 // shop info
@@ -320,3 +325,4 @@ if (!$open) {
 </html>
 
 <?php include 'includes/footer.php'; ?>
+
