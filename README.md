@@ -31,7 +31,6 @@ else defaults
 switch statements
 match expressions
 
-
 ✅ Loop Structures:
 
 while loops
@@ -42,33 +41,6 @@ foreach loops
 
 ✅ File inclusion with include statements
 ✅ Modular code organization
-
-
-📁 File Structure
-cozy-bites/
-├── index.php              # Main landing page (redirects to home.php)
-├── home.php               # Home page with featured cookies
-├── pages.php              # Complete product catalog
-├── about.php              # About us page
-├── css/
-│   └── styles.css         # External stylesheet with color palette
-├── img/
-│   ├── Logo.png           # Shop logo
-│   ├── chocolate-c.jpg    # Product images
-│   ├── double-c.jpg
-│   ├── vanilla-c.jpg
-│   ├── oatmeal-c.jpg
-│   ├── peanutb-c.jpg
-│   ├── macad-c.jpg
-│   ├── snicker-d.jpg
-│   ├── redv-c.jpg
-│   ├── lemon-c.jpg
-│   ├── coconut.jpg
-│   ├── ginger.jpg
-│   └── matcha-c.png
-└── includes/
-    ├── header.php         # Navigation and HTML head
-    └── footer.php         # Footer with copyright
 
 🎨 Design Features
 Color Palette
