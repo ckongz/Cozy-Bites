@@ -1,45 +1,39 @@
 <?php include 'includes/header.php'; ?>
-/* 
-   Home Page 
-   Name: Sophia Casey M. Ong
-   Section: WD - 203 
-*/
 
 <?php
-// shop info
+// VARIABLES
 $shop_name = 'Cozy Bites';
 $owner = 'Sophia Casey M. Ong';
 $tagline = 'Freshly Baked Happiness in Every Bite';
 $est_year = 2020;
 $curr_year = 2024;
-$yrs_business = $curr_year - $est_year;
+$yrs_business = $curr_year - $est_year; // EXPRESSIONS & OPERATORS
 
-// cookies we got
+// ARRAYS
 $cookies = [
     ['name' => 'Classic Chocolate Chip', 'price' => 12, 'stock' => 45],
     ['name' => 'Double Fudge Brownie', 'price' => 15, 'stock' => 32],
     ['name' => 'Vanilla Dream', 'price' => 10, 'stock' => 58],
 ];
 
-// special deal today
+// EXPRESSIONS & OPERATORS
 $orig_price = 50;
 $discount_pct = 20;
 $disc_amt = ($orig_price * $discount_pct) / 100;
 $sale_price = $orig_price - $disc_amt;
 
-// check if we're open
-$hr = 14; // 2pm right now
+// VARIABLES with EXPRESSIONS & OPERATORS
+$hr = 14;
 $open = ($hr >= 8 && $hr < 20);
 $taking_orders = true;
 $can_deliver = ($open && $taking_orders);
 
-// low stock warning
+// VARIABLES
 $low_stock = 20;
-
-// what day is it
 $today = 'Monday';
 $daily_deal = '';
 
+// SWITCH
 switch ($today) {
     case 'Monday':
         $daily_deal = '15% off Chocolate Chip';
@@ -62,7 +56,7 @@ switch ($today) {
         $daily_deal = 'Check our featured items';
 }
 
-// delivery time - depends on how busy we are
+// IF ELSEIF ELSE
 if($hr >= 8 && $hr <= 10) {
     $delivery_est = '30 minutes';
 } elseif($hr >= 11 && $hr <= 14) {
@@ -75,7 +69,7 @@ if($hr >= 8 && $hr <= 10) {
     $delivery_est = 'Not available';
 }
 
-// greeting msg
+// IF ELSEIF ELSE
 if ($hr >= 5 && $hr < 12) {
     $hello = 'Good Morning';
 } elseif ($hr >= 12 && $hr < 18) {
@@ -86,13 +80,13 @@ if ($hr >= 5 && $hr < 12) {
     $hello = 'Welcome';
 }
 
-// count total stock
+// FOREACH LOOP
 $total_stock = 0;
 foreach ($cookies as $c) {
     $total_stock += $c['stock'];
 }
 
-// status msg
+// IF ELSEIF ELSE
 if (!$open) {
     $stat_msg = 'Currently Closed - Opens at 8:00 AM';
     $stat_class = 'closed';
@@ -104,30 +98,34 @@ if (!$open) {
     $stat_class = 'open';
 }
 ?>
-    <!-- top banner -->
     <header class="hero">
+        <!-- SHORTHAND ECHO -->
         <h1><?php echo $shop_name; ?></h1>
         <p class="tagline"><?php echo $tagline; ?></p>
         <p class="subtitle">Serving joy for <?php echo $yrs_business; ?> years</p>
     </header>
 
     <main class="container">
-        <!-- welcome msg -->
         <section class="welcome-box">
+            <!-- SHORTHAND ECHO -->
             <h2><?php echo $hello; ?> to Our Cookie Paradise!</h2>
             <p>Managed by: <strong><?php echo $owner; ?></strong></p>
             <p class="status">Shop Status: <strong><?php echo $stat_msg; ?></strong></p>
+            
+            <!-- TERNARY OPERATOR -->
             <p class="status">Online Orders: <?php echo $taking_orders ? 'Accepting' : 'Closed'; ?></p>
             <p class="status">Delivery: <?php echo $can_deliver ? 'Available' : 'Pickup Only'; ?></p>
+            
+            <!-- SHORTHAND ECHO -->
             <p class="status">Estimated Delivery Time: <strong><?php echo $delivery_est; ?></strong></p>
             <p class="status">Today's Special: <strong><?php echo $daily_deal; ?></strong></p>
         </section>
 
-        <!-- special deal box -->
         <section class="special-offer">
             <h2>Special Offer Today!</h2>
             <p>Cookie Gift Box - Perfect for sharing</p>
             <p class="price-info">
+                <!-- SHORTHAND ECHO -->
                 <span class="old-price">$<?php echo $orig_price; ?></span>
                 <span class="discount"><?php echo $discount_pct; ?>% OFF</span>
             </p>
@@ -135,7 +133,6 @@ if (!$open) {
             <p class="savings">You Save: $<?php echo $disc_amt; ?></p>
         </section>
 
-        <!-- what we got this week -->
         <section class="featured-section">
             <h2>Featured Cookies This Week</h2>
             <table class="cookie-table">
@@ -148,12 +145,15 @@ if (!$open) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- FOREACH LOOP -->
                     <?php foreach ($cookies as $c) { ?>
                         <tr>
+                            <!-- SHORTHAND ECHO -->
                             <td><?php echo $c['name']; ?></td>
                             <td>$<?php echo $c['price']; ?></td>
                             <td><?php echo $c['stock']; ?> pcs</td>
                             <td>
+                                <!-- IF ELSEIF ELSE -->
                                 <?php 
                                 if ($c['stock'] > 50) {
                                     echo 'Well Stocked';
@@ -172,7 +172,6 @@ if (!$open) {
             </table>
         </section>
 
-        <!-- bulk discounts -->
         <section class="featured-section">
             <h2>Bulk Order Discounts</h2>
             <table class="cookie-table">
@@ -185,9 +184,12 @@ if (!$open) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $base = 12;
                     
+                    // FOR LOOP
                     for ($q = 1; $q <= 10; $q += 2) {
+                        // IF ELSEIF ELSE
                         if ($q == 1) {
                             $disc = 0;
                         } elseif ($q <= 3) {
@@ -198,9 +200,11 @@ if (!$open) {
                             $disc = 15;
                         }
                         
+                        // EXPRESSIONS & OPERATORS
                         $disc_price = $base - ($base * $disc / 100);
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $q; ?> dozen<?php echo $q > 1 ? 's' : ''; ?></td>
                             <td><?php echo $disc; ?>%</td>
                             <td>$<?php echo number_format($disc_price, 2); ?></td>
@@ -210,7 +214,6 @@ if (!$open) {
             </table>
         </section>
 
-        <!-- pack pricing -->
         <section class="featured-section">
             <h2>Cookie Pack Prices</h2>
             <table class="cookie-table">
@@ -222,13 +225,17 @@ if (!$open) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $pack_cost = 12.99;
                     $num_packs = 5;
                     
+                    // DO WHILE LOOP
                     do {
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $num_packs; ?> pack<?php echo $num_packs > 1 ? 's' : ''; ?></td>
+                            <!-- EXPRESSIONS & OPERATORS -->
                             <td>$<?php echo number_format($pack_cost * $num_packs, 2); ?></td>
                         </tr>
                     <?php 
@@ -239,7 +246,6 @@ if (!$open) {
             </table>
         </section>
 
-        <!-- running low! -->
         <section class="featured-section">
             <h2>Limited Stock Alert!</h2>
             <table class="cookie-table">
@@ -251,12 +257,16 @@ if (!$open) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $stock_left = 10;
                     
+                    // WHILE LOOP
                     while ($stock_left > 0) {
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $stock_left; ?> item<?php echo $stock_left > 1 ? 's' : ''; ?></td>
+                            <!-- TERNARY OPERATOR -->
                             <td><?php echo $stock_left > 5 ? 'Available' : 'Hurry - Almost Gone!'; ?></td>
                         </tr>
                     <?php 
@@ -267,7 +277,6 @@ if (!$open) {
             </table>
         </section>
 
-        <!-- week schedule -->
         <section class="featured-section">
             <h2>Weekly Special Offers</h2>
             <table class="cookie-table">
@@ -279,6 +288,7 @@ if (!$open) {
                 </thead>
                 <tbody>
                     <?php 
+                    // ARRAYS
                     $week_deals = [
                         'Monday' => '15% off Chocolate Chip',
                         'Tuesday' => '10% off all Premium cookies',
@@ -289,10 +299,13 @@ if (!$open) {
                         'Sunday' => 'Weekend Special: Free delivery'
                     ];
                     
+                    // FOREACH LOOP
                     foreach ($week_deals as $day => $deal) {
+                        // TERNARY OPERATOR
                         $today_mark = ($day == $today) ? ' (Today!)' : '';
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO -->
                             <td><strong><?php echo $day . $today_mark; ?></strong></td>
                             <td><?php echo $deal; ?></td>
                         </tr>
@@ -301,9 +314,9 @@ if (!$open) {
             </table>
         </section>
 
-        <!-- quick numbers -->
         <section class="stats-grid">
             <article class="stat-card">
+                <!-- SHORTHAND ECHO -->
                 <h3><?php echo count($cookies); ?></h3>
                 <p>Featured Items</p>
             </article>
@@ -325,4 +338,3 @@ if (!$open) {
 </html>
 
 <?php include 'includes/footer.php'; ?>
-
