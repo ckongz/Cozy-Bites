@@ -1,25 +1,26 @@
-🍪 Cozy Bites - Cookie Shop Website
+Cozy Bites - Cookie Shop Website
 Student: Sophia Casey M. Ong
 Course: WD-203
 Project: PHP Text-Based Store with Control Statements & Loops
 Year: 2025-2026
 
 📋 Project Overview
-Cozy Bites is a dynamic PHP-based cookie shop website showcasing freshly baked cookies with a complete product catalog, pricing system, and promotional features. The project demonstrates comprehensive PHP programming concepts including variables, arrays, control statements, loops, and modular code organization.
+Cozy Bites is a dynamic PHP-based cookie shop website showcasing freshly baked cookies with a complete product catalog, pricing system, and promotional features. 
+The project demonstrates comprehensive PHP programming concepts including variables, arrays, control statements, loops, and modular code organization.
 
 🎯 Project Requirements
 Module 1 - Basic PHP Concepts (20 Points)
 
-✅ PHP text-based store
-✅ Comments throughout code
-✅ Variables for shop information and calculations
-✅ Arrays for products and schedules
-✅ Shorthand echo statements
-✅ Expressions & Operators (arithmetic, comparison, logical, ternary)
-✅ Type Juggling (implicit type conversions)
-✅ Visually appealing gradient background
-✅ HTML tables for displaying products
-✅ External CSS only (no inline styles)
+PHP text-based store
+Comments throughout code
+Variables for shop information and calculations
+Arrays for products and schedules
+Shorthand echo statements
+Expressions & Operators (arithmetic, comparison, logical, ternary)
+Type Juggling (implicit type conversions)
+Visually appealing gradient background
+HTML tables for displaying products
+External CSS only (no inline styles)
 
 Module 2 - Control Statements & Loops (20 Points)
 
@@ -38,11 +39,10 @@ do-while loops
 for loops
 foreach loops
 
-
 ✅ File inclusion with include statements
-✅ Modular code organization
 
-🎨 Design Features
+
+Design Features
 Color Palette
 
 MIST: #f4f3f1 (Light background)
