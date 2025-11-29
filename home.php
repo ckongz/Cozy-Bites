@@ -4,7 +4,7 @@
 /* 
    Cozy Bites - Home Page
    Name: Sophia Casey M. Ong
-   Section: WD - 203 
+   Section: WD - 203
 */
 
 // Shop variables
@@ -62,6 +62,15 @@ switch ($day_of_week) {
         break;
 }
 
+// MATCH EXPRESSION EXAMPLE - Delivery time estimation
+$delivery_time = match($current_hour) {
+    8, 9, 10 => '30 minutes',
+    11, 12, 13, 14 => '45 minutes',
+    15, 16, 17, 18 => '1 hour',
+    19 => '1.5 hours (Closing soon)',
+    default => 'Not available'
+};
+
 // Customer greeting based on time
 if ($current_hour >= 5 && $current_hour < 12) {
     $greeting = 'Good Morning';
@@ -107,6 +116,7 @@ if (!$is_open) {
             <p class="status">Shop Status: <strong><?php echo $status_message; ?></strong></p>
             <p class="status">Online Orders: <?php echo $accepting_orders ? 'Accepting' : 'Closed'; ?></p>
             <p class="status">Delivery: <?php echo $delivery_available ? 'Available' : 'Pickup Only'; ?></p>
+            <p class="status">Estimated Delivery Time: <strong><?php echo $delivery_time; ?></strong></p>
             <p class="status">Today's Special: <strong><?php echo $daily_special; ?></strong></p>
         </section>
 
@@ -226,6 +236,34 @@ if (!$is_open) {
             </table>
         </section>
 
+        <!-- WHILE LOOP EXAMPLE: Stock Countdown -->
+        <section class="featured-section">
+            <h2>Limited Stock Alert!</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Items Remaining</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $stock_level = 10;
+                    
+                    while ($stock_level > 0) {
+                    ?>
+                        <tr>
+                            <td><?php echo $stock_level; ?> item<?php echo $stock_level > 1 ? 's' : ''; ?></td>
+                            <td><?php echo $stock_level > 5 ? 'Available' : 'Hurry - Almost Gone!'; ?></td>
+                        </tr>
+                    <?php 
+                        $stock_level--;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </section>
+
         <!-- Weekly Schedule -->
         <section class="featured-section">
             <h2>Weekly Special Offers</h2>
@@ -284,4 +322,3 @@ if (!$is_open) {
 </html>
 
 <?php include 'includes/footer.php'; ?>
-
