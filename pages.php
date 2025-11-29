@@ -1,17 +1,11 @@
 <?php include 'includes/header.php'; ?>
 
 <?php
-/* 
-   Products Page - Complete cookie catalog
-   Name: Sophia Casey M. Ong
-   Section: WD - 203 
-*/
-
-// Shop variables
+// VARIABLES
 $shop_name = 'Cozy Bites';
 $page_title = 'Our Products';
 
-// Complete product catalog
+// ARRAYS
 $cookies = [
     ['name' => 'Classic Chocolate Chip', 'price' => 12, 'stock' => 45, 'category' => 'Classic', 'image' => 'img/chocolate-c.jpg'],
     ['name' => 'Double Fudge Brownie', 'price' => 15, 'stock' => 32, 'category' => 'Premium', 'image' => 'img/double-c.jpg'],
@@ -27,53 +21,63 @@ $cookies = [
     ['name' => 'Matcha Chocolate', 'price' => 13, 'stock' => 38, 'category' => 'Premium', 'image' => 'img/matcha-c.png'],
 ];
 
-// Calculate statistics using loops
+// VARIABLES
 $total_stock = 0;
 $price_sum = 0;
 $cookie_count = count($cookies);
 
+// FOREACH LOOP
 foreach ($cookies as $cookie) {
-    $total_stock += $cookie['stock'];
+    $total_stock += $cookie['stock']; // EXPRESSIONS & OPERATORS
     $price_sum += $cookie['price'];
 }
 
+// EXPRESSIONS & OPERATORS
 $average_price = $price_sum / $cookie_count;
 
-// Find min and max prices
+// VARIABLES
 $min_price = $cookies[0]['price'];
 $max_price = $cookies[0]['price'];
 
+// FOREACH LOOP
 foreach ($cookies as $cookie) {
+    // IF
     if ($cookie['price'] < $min_price) {
         $min_price = $cookie['price'];
     }
+    // IF
     if ($cookie['price'] > $max_price) {
         $max_price = $cookie['price'];
     }
 }
 
-// Count by category
+// ARRAYS
 $category_counts = [];
+
+// FOREACH LOOP
 foreach ($cookies as $cookie) {
     $cat = $cookie['category'];
+    // IF
     if (!isset($category_counts[$cat])) {
         $category_counts[$cat] = 0;
     }
-    $category_counts[$cat]++;
+    $category_counts[$cat]++; // OPERATORS
 }
 
-// Bundle offer
+// VARIABLES
 $bundle_quantity = 6;
 $bundle_regular_price = 72;
 $bundle_discount = 15;
+
+// EXPRESSIONS & OPERATORS
 $bundle_savings = ($bundle_regular_price * $bundle_discount) / 100;
 $bundle_price = $bundle_regular_price - $bundle_savings;
 
-// Stock thresholds
+// VARIABLES
 $low_stock = 30;
 $high_stock = 50;
 
-// SWITCH STATEMENT EXAMPLE: Price categories function
+// SWITCH
 function getPriceCategory($price) {
     switch (true) {
         case ($price <= 10):
@@ -85,7 +89,7 @@ function getPriceCategory($price) {
     }
 }
 
-// Stock status function
+// IF ELSEIF ELSE
 function getStockStatus($stock) {
     if ($stock >= 50) {
         return 'Excellent';
@@ -100,23 +104,22 @@ function getStockStatus($stock) {
     }
 }
 ?>
-    <!-- Hero -->
     <header class="hero">
+        <!-- SHORTHAND ECHO -->
         <h1><?php echo $page_title; ?></h1>
         <p class="tagline">Discover Our Delicious Collection</p>
     </header>
 
     <main class="container">
-        <!-- Product Statistics -->
         <section class="welcome-box">
             <h2>Product Overview</h2>
+            <!-- SHORTHAND ECHO -->
             <p><strong>Total Cookie Varieties:</strong> <?php echo $cookie_count; ?> unique flavors</p>
             <p><strong>Total Stock Available:</strong> <?php echo $total_stock; ?> pieces</p>
             <p><strong>Average Price:</strong> $<?php echo number_format($average_price, 2); ?> per dozen</p>
             <p><strong>Price Range:</strong> $<?php echo $min_price; ?> - $<?php echo $max_price; ?></p>
         </section>
 
-        <!-- Category Breakdown -->
         <section class="featured-section">
             <h2>Products by Category</h2>
             <table class="cookie-table">
@@ -127,8 +130,10 @@ function getStockStatus($stock) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- FOREACH LOOP -->
                     <?php foreach ($category_counts as $category => $count) { ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $category; ?></td>
                             <td><?php echo $count; ?> item<?php echo $count > 1 ? 's' : ''; ?></td>
                         </tr>
@@ -137,9 +142,9 @@ function getStockStatus($stock) {
             </table>
         </section>
 
-        <!-- Bundle Offer -->
         <section class="special-offer">
             <h2>Special Bundle Offer</h2>
+            <!-- SHORTHAND ECHO -->
             <p>Mix & Match Any <?php echo $bundle_quantity; ?> Dozens</p>
             <p class="price-info">
                 <span class="old-price">$<?php echo $bundle_regular_price; ?></span>
@@ -149,7 +154,6 @@ function getStockStatus($stock) {
             <p class="savings">Save $<?php echo $bundle_savings; ?>!</p>
         </section>
 
-        <!-- Complete Product Table -->
         <section class="featured-section">
             <h2>Complete Cookie Catalog</h2>
             <table class="cookie-table">
@@ -164,8 +168,10 @@ function getStockStatus($stock) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- FOREACH LOOP -->
                     <?php foreach ($cookies as $cookie) { ?>
                         <tr>
+                            <!-- SHORTHAND ECHO -->
                             <td><img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="cookie-image"></td>
                             <td><?php echo $cookie['name']; ?></td>
                             <td><?php echo $cookie['category']; ?></td>
@@ -178,7 +184,6 @@ function getStockStatus($stock) {
             </table>
         </section>
 
-        <!-- FOR LOOP EXAMPLE: Quantity-Based Pricing -->
         <section class="featured-section">
             <h2>Quantity Pricing (Buy More, Save More!)</h2>
             <table class="cookie-table">
@@ -191,13 +196,17 @@ function getStockStatus($stock) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $base_price = 12;
                     
+                    // FOR LOOP
                     for ($quantity = 1; $quantity <= 5; $quantity++) {
+                        // EXPRESSIONS & OPERATORS
                         $price_per_dozen = $base_price - ($quantity * 0.50);
                         $total = $price_per_dozen * $quantity;
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $quantity; ?> dozen<?php echo $quantity > 1 ? 's' : ''; ?></td>
                             <td>$<?php echo number_format($price_per_dozen, 2); ?></td>
                             <td>$<?php echo number_format($total, 2); ?></td>
@@ -207,7 +216,6 @@ function getStockStatus($stock) {
             </table>
         </section>
 
-        <!-- DO-WHILE LOOP EXAMPLE: Countdown Deals -->
         <section class="featured-section">
             <h2>Flash Sale Countdown</h2>
             <table class="cookie-table">
@@ -220,25 +228,28 @@ function getStockStatus($stock) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $hours_left = 5;
                     
+                    // DO WHILE LOOP
                     do {
+                        // EXPRESSIONS & OPERATORS
                         $discount = $hours_left * 4;
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $hours_left; ?> hour<?php echo $hours_left > 1 ? 's' : ''; ?></td>
                             <td><?php echo $discount; ?>%</td>
                             <td><?php echo $discount >= 15 ? 'Great Deal!' : 'Last Chance!'; ?></td>
                         </tr>
                     <?php 
-                        $hours_left--;
+                        $hours_left--; // OPERATORS
                     } while ($hours_left > 0);
                     ?>
                 </tbody>
             </table>
         </section>
 
-        <!-- Price Range Analysis -->
         <section class="featured-section">
             <h2>Price Range Breakdown</h2>
             <table class="cookie-table">
@@ -250,11 +261,14 @@ function getStockStatus($stock) {
                 </thead>
                 <tbody>
                     <?php 
+                    // VARIABLES
                     $budget = 0;
                     $standard = 0;
                     $premium = 0;
                     
+                    // FOREACH LOOP
                     foreach ($cookies as $cookie) {
+                        // IF ELSEIF ELSE
                         if ($cookie['price'] <= 10) {
                             $budget++;
                         } elseif ($cookie['price'] <= 13) {
@@ -264,6 +278,7 @@ function getStockStatus($stock) {
                         }
                     }
                     ?>
+                    <!-- SHORTHAND ECHO -->
                     <tr>
                         <td>Budget Friendly ($9-$10)</td>
                         <td><?php echo $budget; ?> products</td>
@@ -280,17 +295,21 @@ function getStockStatus($stock) {
             </table>
         </section>
 
-        <!-- Premium Collection -->
         <section class="featured-section">
             <h2>Premium Collection</h2>
             <section class="products-grid">
                 <?php 
+                // VARIABLES
                 $premium_count = 0;
+                
+                // FOREACH LOOP
                 foreach ($cookies as $cookie) {
+                    // IF
                     if ($cookie['category'] == 'Premium' && $premium_count < 4) {
-                        $premium_count++;
+                        $premium_count++; // OPERATORS
                 ?>
                     <article class="product-card">
+                        <!-- SHORTHAND ECHO -->
                         <img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="product-image">
                         <h3><?php echo $cookie['name']; ?></h3>
                         <span class="product-badge"><?php echo $cookie['category']; ?></span>
@@ -305,7 +324,6 @@ function getStockStatus($stock) {
             </section>
         </section>
 
-        <!-- Low Stock Alert -->
         <section class="featured-section">
             <h2>Limited Stock - Order Now!</h2>
             <table class="cookie-table">
@@ -319,15 +337,19 @@ function getStockStatus($stock) {
                 </thead>
                 <tbody>
                     <?php 
+                    // FOREACH LOOP
                     foreach ($cookies as $cookie) {
+                        // IF
                         if ($cookie['stock'] < $low_stock) {
                     ?>
                         <tr>
+                            <!-- SHORTHAND ECHO -->
                             <td><?php echo $cookie['name']; ?></td>
                             <td>$<?php echo $cookie['price']; ?></td>
                             <td><?php echo $cookie['stock']; ?> dozens</td>
                             <td>
                                 <?php 
+                                // IF ELSE
                                 if ($cookie['stock'] < 20) {
                                     echo 'Very Low - Order Soon!';
                                 } else {
