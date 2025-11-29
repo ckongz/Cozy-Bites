@@ -1,7 +1,10 @@
+<?php include 'includes/header.php'; ?>
+
 <?php
 /* 
-   Products Page - Cookie Catalog
-   All available cookies with pricing
+   Products Page - Complete cookie catalog
+   Name: Sophia Casey M. Ong
+   Section: WD - 203 
 */
 
 // Shop variables
@@ -21,27 +24,43 @@ $cookies = [
     ['name' => 'Lemon Sugar', 'price' => 10, 'stock' => 48, 'category' => 'Citrus', 'image' => 'img/lemon-c.jpg'],
     ['name' => 'Coconut Macaroon', 'price' => 12, 'stock' => 35, 'category' => 'Tropical', 'image' => 'img/coconut.jpg'],
     ['name' => 'Ginger Snap', 'price' => 9, 'stock' => 60, 'category' => 'Spiced', 'image' => 'img/ginger.jpg'],
-    ['name' => 'Matcha Chocolate', 'price' => 13, 'stock' => 38, 'category' => 'Premium', 'image' => 'img/matcha-c.jpg'],
+    ['name' => 'Matcha Chocolate', 'price' => 13, 'stock' => 38, 'category' => 'Premium', 'image' => 'img/matcha-c.png'],
 ];
 
-// Calculate total stock
-$total_stock = $cookies[0]['stock'] + $cookies[1]['stock'] + $cookies[2]['stock'] + 
-               $cookies[3]['stock'] + $cookies[4]['stock'] + $cookies[5]['stock'] +
-               $cookies[6]['stock'] + $cookies[7]['stock'] + $cookies[8]['stock'] +
-               $cookies[9]['stock'] + $cookies[10]['stock'] + $cookies[11]['stock'];
+// Calculate statistics using loops
+$total_stock = 0;
+$price_sum = 0;
+$cookie_count = count($cookies);
 
-// Calculate average price
-$price_sum = $cookies[0]['price'] + $cookies[1]['price'] + $cookies[2]['price'] + 
-             $cookies[3]['price'] + $cookies[4]['price'] + $cookies[5]['price'] +
-             $cookies[6]['price'] + $cookies[7]['price'] + $cookies[8]['price'] +
-             $cookies[9]['price'] + $cookies[10]['price'] + $cookies[11]['price'];
+foreach ($cookies as $cookie) {
+    $total_stock += $cookie['stock'];
+    $price_sum += $cookie['price'];
+}
 
-$cookie_count = 12;
 $average_price = $price_sum / $cookie_count;
 
-// Price range
-$min_price = 9;
-$max_price = 16;
+// Find min and max prices
+$min_price = $cookies[0]['price'];
+$max_price = $cookies[0]['price'];
+
+foreach ($cookies as $cookie) {
+    if ($cookie['price'] < $min_price) {
+        $min_price = $cookie['price'];
+    }
+    if ($cookie['price'] > $max_price) {
+        $max_price = $cookie['price'];
+    }
+}
+
+// Count by category
+$category_counts = [];
+foreach ($cookies as $cookie) {
+    $cat = $cookie['category'];
+    if (!isset($category_counts[$cat])) {
+        $category_counts[$cat] = 0;
+    }
+    $category_counts[$cat]++;
+}
 
 // Bundle offer
 $bundle_quantity = 6;
@@ -50,35 +69,40 @@ $bundle_discount = 15;
 $bundle_savings = ($bundle_regular_price * $bundle_discount) / 100;
 $bundle_price = $bundle_regular_price - $bundle_savings;
 
-// Stock threshold
+// Stock thresholds
 $low_stock = 30;
 $high_stock = 50;
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?= $page_title ?> - <?= $shop_name ?></title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <section class="nav-container">
-            <section class="logo">
-                <img src="img/Logo.png" alt="Cozy Bites Logo" class="logo-img">
-                <span class="logo-text"><?= $shop_name ?></span>
-            </section>
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="pages.php" class="active">Products</a></li>
-                <li><a href="about.php">About</a></li>
-            </ul>
-        </section>
-    </nav>
 
+// SWITCH STATEMENT EXAMPLE: Price categories function
+function getPriceCategory($price) {
+    switch (true) {
+        case ($price <= 10):
+            return 'Budget Friendly';
+        case ($price <= 13):
+            return 'Standard';
+        default:
+            return 'Premium';
+    }
+}
+
+// Stock status function
+function getStockStatus($stock) {
+    if ($stock >= 50) {
+        return 'Excellent';
+    } elseif ($stock >= 30) {
+        return 'Good';
+    } elseif ($stock >= 15) {
+        return 'Limited';
+    } elseif ($stock > 0) {
+        return 'Low';
+    } else {
+        return 'Out';
+    }
+}
+?>
     <!-- Hero -->
     <header class="hero">
-        <h1><?= $page_title ?></h1>
+        <h1><?php echo $page_title; ?></h1>
         <p class="tagline">Discover Our Delicious Collection</p>
     </header>
 
@@ -86,22 +110,43 @@ $high_stock = 50;
         <!-- Product Statistics -->
         <section class="welcome-box">
             <h2>Product Overview</h2>
-            <p><strong>Total Cookie Varieties:</strong> <?= $cookie_count ?> unique flavors</p>
-            <p><strong>Total Stock Available:</strong> <?= $total_stock ?> pieces</p>
-            <p><strong>Average Price:</strong> $<?= $average_price ?> per dozen</p>
-            <p><strong>Price Range:</strong> $<?= $min_price ?> - $<?= $max_price ?></p>
+            <p><strong>Total Cookie Varieties:</strong> <?php echo $cookie_count; ?> unique flavors</p>
+            <p><strong>Total Stock Available:</strong> <?php echo $total_stock; ?> pieces</p>
+            <p><strong>Average Price:</strong> $<?php echo number_format($average_price, 2); ?> per dozen</p>
+            <p><strong>Price Range:</strong> $<?php echo $min_price; ?> - $<?php echo $max_price; ?></p>
+        </section>
+
+        <!-- Category Breakdown -->
+        <section class="featured-section">
+            <h2>Products by Category</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Number of Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($category_counts as $category => $count) { ?>
+                        <tr>
+                            <td><?php echo $category; ?></td>
+                            <td><?php echo $count; ?> item<?php echo $count > 1 ? 's' : ''; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </section>
 
         <!-- Bundle Offer -->
         <section class="special-offer">
             <h2>Special Bundle Offer</h2>
-            <p>Mix & Match Any <?= $bundle_quantity ?> Dozens</p>
+            <p>Mix & Match Any <?php echo $bundle_quantity; ?> Dozens</p>
             <p class="price-info">
-                <span class="old-price">$<?= $bundle_regular_price ?></span>
-                <span class="discount"><?= $bundle_discount ?>% OFF</span>
+                <span class="old-price">$<?php echo $bundle_regular_price; ?></span>
+                <span class="discount"><?php echo $bundle_discount; ?>% OFF</span>
             </p>
-            <p class="final-price">Bundle Price: $<?= $bundle_price ?></p>
-            <p class="savings">Save $<?= $bundle_savings ?>!</p>
+            <p class="final-price">Bundle Price: $<?php echo $bundle_price; ?></p>
+            <p class="savings">Save $<?php echo $bundle_savings; ?>!</p>
         </section>
 
         <!-- Complete Product Table -->
@@ -115,164 +160,191 @@ $high_stock = 50;
                         <th>Category</th>
                         <th>Price/Dozen</th>
                         <th>Stock</th>
-                        <th>Availability</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach ($cookies as $cookie) { ?>
+                        <tr>
+                            <td><img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="cookie-image"></td>
+                            <td><?php echo $cookie['name']; ?></td>
+                            <td><?php echo $cookie['category']; ?></td>
+                            <td>$<?php echo $cookie['price']; ?></td>
+                            <td><?php echo $cookie['stock']; ?></td>
+                            <td><?php echo getStockStatus($cookie['stock']); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- FOR LOOP EXAMPLE: Quantity-Based Pricing -->
+        <section class="featured-section">
+            <h2>Quantity Pricing (Buy More, Save More!)</h2>
+            <table class="cookie-table">
+                <thead>
                     <tr>
-                        <td><img src="<?= $cookies[0]['image'] ?>" alt="<?= $cookies[0]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[0]['name'] ?></td>
-                        <td><?= $cookies[0]['category'] ?></td>
-                        <td>$<?= $cookies[0]['price'] ?></td>
-                        <td><?= $cookies[0]['stock'] ?></td>
-                        <td><?= ($cookies[0]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
+                        <th>Quantity</th>
+                        <th>Price Per Dozen</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $base_price = 12;
+                    
+                    for ($quantity = 1; $quantity <= 5; $quantity++) {
+                        $price_per_dozen = $base_price - ($quantity * 0.50);
+                        $total = $price_per_dozen * $quantity;
+                    ?>
+                        <tr>
+                            <td><?php echo $quantity; ?> dozen<?php echo $quantity > 1 ? 's' : ''; ?></td>
+                            <td>$<?php echo number_format($price_per_dozen, 2); ?></td>
+                            <td>$<?php echo number_format($total, 2); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- DO-WHILE LOOP EXAMPLE: Countdown Deals -->
+        <section class="featured-section">
+            <h2>Flash Sale Countdown</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Hours Left</th>
+                        <th>Discount</th>
+                        <th>Deal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $hours_left = 5;
+                    
+                    do {
+                        $discount = $hours_left * 4;
+                    ?>
+                        <tr>
+                            <td><?php echo $hours_left; ?> hour<?php echo $hours_left > 1 ? 's' : ''; ?></td>
+                            <td><?php echo $discount; ?>%</td>
+                            <td><?php echo $discount >= 15 ? 'Great Deal!' : 'Last Chance!'; ?></td>
+                        </tr>
+                    <?php 
+                        $hours_left--;
+                    } while ($hours_left > 0);
+                    ?>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Price Range Analysis -->
+        <section class="featured-section">
+            <h2>Price Range Breakdown</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Price Range</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $budget = 0;
+                    $standard = 0;
+                    $premium = 0;
+                    
+                    foreach ($cookies as $cookie) {
+                        if ($cookie['price'] <= 10) {
+                            $budget++;
+                        } elseif ($cookie['price'] <= 13) {
+                            $standard++;
+                        } else {
+                            $premium++;
+                        }
+                    }
+                    ?>
+                    <tr>
+                        <td>Budget Friendly ($9-$10)</td>
+                        <td><?php echo $budget; ?> products</td>
                     </tr>
                     <tr>
-                        <td><img src="<?= $cookies[1]['image'] ?>" alt="<?= $cookies[1]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[1]['name'] ?></td>
-                        <td><?= $cookies[1]['category'] ?></td>
-                        <td>$<?= $cookies[1]['price'] ?></td>
-                        <td><?= $cookies[1]['stock'] ?></td>
-                        <td><?= ($cookies[1]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
+                        <td>Standard ($11-$13)</td>
+                        <td><?php echo $standard; ?> products</td>
                     </tr>
                     <tr>
-                        <td><img src="<?= $cookies[2]['image'] ?>" alt="<?= $cookies[2]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[2]['name'] ?></td>
-                        <td><?= $cookies[2]['category'] ?></td>
-                        <td>$<?= $cookies[2]['price'] ?></td>
-                        <td><?= $cookies[2]['stock'] ?></td>
-                        <td><?= ($cookies[2]['stock'] > $high_stock) ? 'In Stock' : 'Available' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[3]['image'] ?>" alt="<?= $cookies[3]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[3]['name'] ?></td>
-                        <td><?= $cookies[3]['category'] ?></td>
-                        <td>$<?= $cookies[3]['price'] ?></td>
-                        <td><?= $cookies[3]['stock'] ?></td>
-                        <td><?= ($cookies[3]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[4]['image'] ?>" alt="<?= $cookies[4]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[4]['name'] ?></td>
-                        <td><?= $cookies[4]['category'] ?></td>
-                        <td>$<?= $cookies[4]['price'] ?></td>
-                        <td><?= $cookies[4]['stock'] ?></td>
-                        <td><?= ($cookies[4]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[5]['image'] ?>" alt="<?= $cookies[5]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[5]['name'] ?></td>
-                        <td><?= $cookies[5]['category'] ?></td>
-                        <td>$<?= $cookies[5]['price'] ?></td>
-                        <td><?= $cookies[5]['stock'] ?></td>
-                        <td><?= ($cookies[5]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[6]['image'] ?>" alt="<?= $cookies[6]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[6]['name'] ?></td>
-                        <td><?= $cookies[6]['category'] ?></td>
-                        <td>$<?= $cookies[6]['price'] ?></td>
-                        <td><?= $cookies[6]['stock'] ?></td>
-                        <td><?= ($cookies[6]['stock'] > $high_stock) ? 'In Stock' : 'Available' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[7]['image'] ?>" alt="<?= $cookies[7]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[7]['name'] ?></td>
-                        <td><?= $cookies[7]['category'] ?></td>
-                        <td>$<?= $cookies[7]['price'] ?></td>
-                        <td><?= $cookies[7]['stock'] ?></td>
-                        <td><?= ($cookies[7]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[8]['image'] ?>" alt="<?= $cookies[8]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[8]['name'] ?></td>
-                        <td><?= $cookies[8]['category'] ?></td>
-                        <td>$<?= $cookies[8]['price'] ?></td>
-                        <td><?= $cookies[8]['stock'] ?></td>
-                        <td><?= ($cookies[8]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[9]['image'] ?>" alt="<?= $cookies[9]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[9]['name'] ?></td>
-                        <td><?= $cookies[9]['category'] ?></td>
-                        <td>$<?= $cookies[9]['price'] ?></td>
-                        <td><?= $cookies[9]['stock'] ?></td>
-                        <td><?= ($cookies[9]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[10]['image'] ?>" alt="<?= $cookies[10]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[10]['name'] ?></td>
-                        <td><?= $cookies[10]['category'] ?></td>
-                        <td>$<?= $cookies[10]['price'] ?></td>
-                        <td><?= $cookies[10]['stock'] ?></td>
-                        <td><?= ($cookies[10]['stock'] > $high_stock) ? 'In Stock' : 'Available' ?></td>
-                    </tr>
-                    <tr>
-                        <td><img src="<?= $cookies[11]['image'] ?>" alt="<?= $cookies[11]['name'] ?>" class="cookie-image"></td>
-                        <td><?= $cookies[11]['name'] ?></td>
-                        <td><?= $cookies[11]['category'] ?></td>
-                        <td>$<?= $cookies[11]['price'] ?></td>
-                        <td><?= $cookies[11]['stock'] ?></td>
-                        <td><?= ($cookies[11]['stock'] > $low_stock) ? 'Available' : 'Low Stock' ?></td>
+                        <td>Premium ($14+)</td>
+                        <td><?php echo $premium; ?> products</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Featured Products -->
+        <!-- Premium Collection -->
         <section class="featured-section">
-            <h2>Featured Highlights</h2>
+            <h2>Premium Collection</h2>
             <section class="products-grid">
-                <article class="product-card">
-                    <img src="<?= $cookies[1]['image'] ?>" alt="<?= $cookies[1]['name'] ?>" class="product-image">
-                    <h3><?= $cookies[1]['name'] ?></h3>
-                    <span class="product-badge"><?= $cookies[1]['category'] ?></span>
-                    <p class="product-price">$<?= $cookies[1]['price'] ?></p>
-                    <p class="product-stock">Stock: <?= $cookies[1]['stock'] ?> dozens</p>
-                </article>
-                
-                <article class="product-card">
-                    <img src="<?= $cookies[2]['image'] ?>" alt="<?= $cookies[2]['name'] ?>" class="product-image">
-                    <h3><?= $cookies[2]['name'] ?></h3>
-                    <span class="product-badge"><?= $cookies[2]['category'] ?></span>
-                    <p class="product-price">$<?= $cookies[2]['price'] ?></p>
-                    <p class="product-stock">Stock: <?= $cookies[2]['stock'] ?> dozens</p>
-                </article>
-                
-                <article class="product-card">
-                    <img src="<?= $cookies[0]['image'] ?>" alt="<?= $cookies[0]['name'] ?>" class="product-image">
-                    <h3><?= $cookies[0]['name'] ?></h3>
-                    <span class="product-badge"><?= $cookies[0]['category'] ?></span>
-                    <p class="product-price">$<?= $cookies[0]['price'] ?></p>
-                    <p class="product-stock">Stock: <?= $cookies[0]['stock'] ?> dozens</p>
-                </article>
+                <?php 
+                $premium_count = 0;
+                foreach ($cookies as $cookie) {
+                    if ($cookie['category'] == 'Premium' && $premium_count < 4) {
+                        $premium_count++;
+                ?>
+                    <article class="product-card">
+                        <img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="product-image">
+                        <h3><?php echo $cookie['name']; ?></h3>
+                        <span class="product-badge"><?php echo $cookie['category']; ?></span>
+                        <p class="product-price">$<?php echo $cookie['price']; ?></p>
+                        <p class="product-stock">Stock: <?php echo $cookie['stock']; ?> dozens</p>
+                        <p class="product-stock"><?php echo getPriceCategory($cookie['price']); ?></p>
+                    </article>
+                <?php 
+                    }
+                } 
+                ?>
             </section>
         </section>
 
-        <!-- Pricing Tiers -->
-        <section class="stats-grid">
-            <article class="stat-card">
-                <h3>Budget Friendly</h3>
-                <p>$9 - $11</p>
-                <p>Great taste, great value</p>
-            </article>
-            <article class="stat-card">
-                <h3>Standard</h3>
-                <p>$12 - $13</p>
-                <p>Perfect everyday treats</p>
-            </article>
-            <article class="stat-card">
-                <h3>Premium</h3>
-                <p>$14 - $16</p>
-                <p>Luxury cookie experience</p>
-            </article>
+        <!-- Low Stock Alert -->
+        <section class="featured-section">
+            <h2>Limited Stock - Order Now!</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Cookie Name</th>
+                        <th>Price</th>
+                        <th>Remaining Stock</th>
+                        <th>Alert Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    foreach ($cookies as $cookie) {
+                        if ($cookie['stock'] < $low_stock) {
+                    ?>
+                        <tr>
+                            <td><?php echo $cookie['name']; ?></td>
+                            <td>$<?php echo $cookie['price']; ?></td>
+                            <td><?php echo $cookie['stock']; ?> dozens</td>
+                            <td>
+                                <?php 
+                                if ($cookie['stock'] < 20) {
+                                    echo 'Very Low - Order Soon!';
+                                } else {
+                                    echo 'Low Stock';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    <?php 
+                        }
+                    } 
+                    ?>
+                </tbody>
+            </table>
         </section>
     </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Cozy Bites. All rights reserved.</p>
-        <p>Sophia Ong</p>
-    </footer>
 </body>
 </html>
+
+<?php include 'includes/footer.php'; ?>
