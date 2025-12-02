@@ -7,18 +7,18 @@ $page_title = 'Our Products';
 
 // ARRAYS
 $cookies = [
-    ['name' => 'Classic Chocolate Chip', 'price' => 12, 'stock' => 45, 'category' => 'Classic', 'image' => 'img/chocolate-c.jpg'],
-    ['name' => 'Double Fudge Brownie', 'price' => 15, 'stock' => 32, 'category' => 'Premium', 'image' => 'img/double-c.jpg'],
-    ['name' => 'Vanilla Dream', 'price' => 10, 'stock' => 58, 'category' => 'Classic', 'image' => 'img/vanilla-c.jpg'],
-    ['name' => 'Oatmeal Raisin', 'price' => 11, 'stock' => 40, 'category' => 'Healthy', 'image' => 'img/oatmeal-c.jpg'],
-    ['name' => 'Peanut Butter Delight', 'price' => 13, 'stock' => 28, 'category' => 'Nutty', 'image' => 'img/peanutb-c.jpg'],
-    ['name' => 'White Chocolate Macadamia', 'price' => 16, 'stock' => 25, 'category' => 'Premium', 'image' => 'img/macad-c.jpg'],
-    ['name' => 'Snickerdoodle', 'price' => 11, 'stock' => 52, 'category' => 'Classic', 'image' => 'img/snicker-d.jpg'],
-    ['name' => 'Red Velvet', 'price' => 14, 'stock' => 30, 'category' => 'Premium', 'image' => 'img/redv-c.jpg'],
-    ['name' => 'Lemon Sugar', 'price' => 10, 'stock' => 48, 'category' => 'Citrus', 'image' => 'img/lemon-c.jpg'],
-    ['name' => 'Coconut Macaroon', 'price' => 12, 'stock' => 35, 'category' => 'Tropical', 'image' => 'img/coconut.jpg'],
-    ['name' => 'Ginger Snap', 'price' => 9, 'stock' => 60, 'category' => 'Spiced', 'image' => 'img/ginger.jpg'],
-    ['name' => 'Matcha Chocolate', 'price' => 13, 'stock' => 38, 'category' => 'Premium', 'image' => 'img/matcha-c.png'],
+    ['name' => 'Classic Chocolate Chip', 'price' => 180, 'stock' => 45, 'category' => 'Classic', 'image' => 'img/chocolate-c.jpg'],
+    ['name' => 'Double Fudge Brownie', 'price' => 225, 'stock' => 32, 'category' => 'Premium', 'image' => 'img/double-c.jpg'],
+    ['name' => 'Vanilla Dream', 'price' => 150, 'stock' => 58, 'category' => 'Classic', 'image' => 'img/vanilla-c.jpg'],
+    ['name' => 'Oatmeal Raisin', 'price' => 165, 'stock' => 40, 'category' => 'Healthy', 'image' => 'img/oatmeal-c.jpg'],
+    ['name' => 'Peanut Butter Delight', 'price' => 195, 'stock' => 28, 'category' => 'Nutty', 'image' => 'img/peanutb-c.jpg'],
+    ['name' => 'White Chocolate Macadamia', 'price' => 240, 'stock' => 25, 'category' => 'Premium', 'image' => 'img/macad-c.jpg'],
+    ['name' => 'Snickerdoodle', 'price' => 165, 'stock' => 52, 'category' => 'Classic', 'image' => 'img/snicker-d.jpg'],
+    ['name' => 'Red Velvet', 'price' => 210, 'stock' => 30, 'category' => 'Premium', 'image' => 'img/redv-c.jpg'],
+    ['name' => 'Lemon Sugar', 'price' => 150, 'stock' => 48, 'category' => 'Citrus', 'image' => 'img/lemon-c.jpg'],
+    ['name' => 'Coconut Macaroon', 'price' => 180, 'stock' => 35, 'category' => 'Tropical', 'image' => 'img/coconut.jpg'],
+    ['name' => 'Ginger Snap', 'price' => 135, 'stock' => 60, 'category' => 'Spiced', 'image' => 'img/ginger.jpg'],
+    ['name' => 'Matcha Chocolate', 'price' => 195, 'stock' => 38, 'category' => 'Premium', 'image' => 'img/matcha-c.png'],
 ];
 
 // VARIABLES
@@ -66,7 +66,7 @@ foreach ($cookies as $cookie) {
 
 // VARIABLES
 $bundle_quantity = 6;
-$bundle_regular_price = 72;
+$bundle_regular_price = 1080;
 $bundle_discount = 15;
 
 // EXPRESSIONS & OPERATORS
@@ -80,9 +80,9 @@ $high_stock = 50;
 // SWITCH
 function getPriceCategory($price) {
     switch (true) {
-        case ($price <= 10):
+        case ($price <= 150):
             return 'Budget Friendly';
-        case ($price <= 13):
+        case ($price <= 195):
             return 'Standard';
         default:
             return 'Premium';
@@ -116,8 +116,8 @@ function getStockStatus($stock) {
             <!-- SHORTHAND ECHO -->
             <p><strong>Total Cookie Varieties:</strong> <?php echo $cookie_count; ?> unique flavors</p>
             <p><strong>Total Stock Available:</strong> <?php echo $total_stock; ?> pieces</p>
-            <p><strong>Average Price:</strong> $<?php echo number_format($average_price, 2); ?> per dozen</p>
-            <p><strong>Price Range:</strong> $<?php echo $min_price; ?> - $<?php echo $max_price; ?></p>
+            <p><strong>Average Price:</strong> ₱<?php echo number_format($average_price, 2); ?> per dozen</p>
+            <p><strong>Price Range:</strong> ₱<?php echo $min_price; ?> - ₱<?php echo $max_price; ?></p>
         </section>
 
         <section class="featured-section">
@@ -147,11 +147,11 @@ function getStockStatus($stock) {
             <!-- SHORTHAND ECHO -->
             <p>Mix & Match Any <?php echo $bundle_quantity; ?> Dozens</p>
             <p class="price-info">
-                <span class="old-price">$<?php echo $bundle_regular_price; ?></span>
+                <span class="old-price">₱<?php echo $bundle_regular_price; ?></span>
                 <span class="discount"><?php echo $bundle_discount; ?>% OFF</span>
             </p>
-            <p class="final-price">Bundle Price: $<?php echo $bundle_price; ?></p>
-            <p class="savings">Save $<?php echo $bundle_savings; ?>!</p>
+            <p class="final-price">Bundle Price: ₱<?php echo $bundle_price; ?></p>
+            <p class="savings">Save ₱<?php echo $bundle_savings; ?>!</p>
         </section>
 
         <section class="featured-section">
@@ -175,7 +175,7 @@ function getStockStatus($stock) {
                             <td><img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="cookie-image"></td>
                             <td><?php echo $cookie['name']; ?></td>
                             <td><?php echo $cookie['category']; ?></td>
-                            <td>$<?php echo $cookie['price']; ?></td>
+                            <td>₱<?php echo $cookie['price']; ?></td>
                             <td><?php echo $cookie['stock']; ?></td>
                             <td><?php echo getStockStatus($cookie['stock']); ?></td>
                         </tr>
@@ -197,19 +197,19 @@ function getStockStatus($stock) {
                 <tbody>
                     <?php 
                     // VARIABLES
-                    $base_price = 12;
+                    $base_price = 180;
                     
                     // FOR LOOP
                     for ($quantity = 1; $quantity <= 5; $quantity++) {
                         // EXPRESSIONS & OPERATORS
-                        $price_per_dozen = $base_price - ($quantity * 0.50);
+                        $price_per_dozen = $base_price - ($quantity * 7.50);
                         $total = $price_per_dozen * $quantity;
                     ?>
                         <tr>
                             <!-- SHORTHAND ECHO & TERNARY OPERATOR -->
                             <td><?php echo $quantity; ?> dozen<?php echo $quantity > 1 ? 's' : ''; ?></td>
-                            <td>$<?php echo number_format($price_per_dozen, 2); ?></td>
-                            <td>$<?php echo number_format($total, 2); ?></td>
+                            <td>₱<?php echo number_format($price_per_dozen, 2); ?></td>
+                            <td>₱<?php echo number_format($total, 2); ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -269,9 +269,9 @@ function getStockStatus($stock) {
                     // FOREACH LOOP
                     foreach ($cookies as $cookie) {
                         // IF ELSEIF ELSE
-                        if ($cookie['price'] <= 10) {
+                        if ($cookie['price'] <= 150) {
                             $budget++;
-                        } elseif ($cookie['price'] <= 13) {
+                        } elseif ($cookie['price'] <= 195) {
                             $standard++;
                         } else {
                             $premium++;
@@ -280,15 +280,15 @@ function getStockStatus($stock) {
                     ?>
                     <!-- SHORTHAND ECHO -->
                     <tr>
-                        <td>Budget Friendly ($9-$10)</td>
+                        <td>Budget Friendly (₱135-₱150)</td>
                         <td><?php echo $budget; ?> products</td>
                     </tr>
                     <tr>
-                        <td>Standard ($11-$13)</td>
+                        <td>Standard (₱165-₱195)</td>
                         <td><?php echo $standard; ?> products</td>
                     </tr>
                     <tr>
-                        <td>Premium ($14+)</td>
+                        <td>Premium (₱210+)</td>
                         <td><?php echo $premium; ?> products</td>
                     </tr>
                 </tbody>
@@ -313,7 +313,7 @@ function getStockStatus($stock) {
                         <img src="<?php echo $cookie['image']; ?>" alt="<?php echo $cookie['name']; ?>" class="product-image">
                         <h3><?php echo $cookie['name']; ?></h3>
                         <span class="product-badge"><?php echo $cookie['category']; ?></span>
-                        <p class="product-price">$<?php echo $cookie['price']; ?></p>
+                        <p class="product-price">₱<?php echo $cookie['price']; ?></p>
                         <p class="product-stock">Stock: <?php echo $cookie['stock']; ?> dozens</p>
                         <p class="product-stock"><?php echo getPriceCategory($cookie['price']); ?></p>
                     </article>
@@ -345,7 +345,7 @@ function getStockStatus($stock) {
                         <tr>
                             <!-- SHORTHAND ECHO -->
                             <td><?php echo $cookie['name']; ?></td>
-                            <td>$<?php echo $cookie['price']; ?></td>
+                            <td>₱<?php echo $cookie['price']; ?></td>
                             <td><?php echo $cookie['stock']; ?> dozens</td>
                             <td>
                                 <?php 
