@@ -1,5 +1,5 @@
 <?php 
-declare(strict_types=1); // Strict types enabled
+declare(strict_types=1); // Strict enable
 include 'includes/header.php'; 
 
 // VARIABLES
@@ -92,4 +92,5 @@ function get_tax_due(float $price, int $quantity, int $tax_rate = 0): float
         </table>
     </section>
 </main>
+
 <?php include 'includes/footer.php'; ?>
