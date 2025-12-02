@@ -15,6 +15,7 @@
             <ul class="nav-links">
                 <li><a href="home.php" class="active">Home</a></li>
                 <li><a href="pages.php">Products</a></li>
+                <li><a href="functions.php">Stocks</a></li>
             </ul>
         </section>
     </nav>
