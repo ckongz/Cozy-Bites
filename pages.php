@@ -76,33 +76,6 @@ $bundle_price = $bundle_regular_price - $bundle_savings;
 // VARIABLES
 $low_stock = 30;
 $high_stock = 50;
-
-// SWITCH
-function getPriceCategory($price) {
-    switch (true) {
-        case ($price <= 150):
-            return 'Budget Friendly';
-        case ($price <= 195):
-            return 'Standard';
-        default:
-            return 'Premium';
-    }
-}
-
-// IF ELSEIF ELSE
-function getStockStatus($stock) {
-    if ($stock >= 50) {
-        return 'Excellent';
-    } elseif ($stock >= 30) {
-        return 'Good';
-    } elseif ($stock >= 15) {
-        return 'Limited';
-    } elseif ($stock > 0) {
-        return 'Low';
-    } else {
-        return 'Out';
-    }
-}
 ?>
     <header class="hero">
         <!-- SHORTHAND ECHO -->
@@ -177,7 +150,22 @@ function getStockStatus($stock) {
                             <td><?php echo $cookie['category']; ?></td>
                             <td>₱<?php echo $cookie['price']; ?></td>
                             <td><?php echo $cookie['stock']; ?></td>
-                            <td><?php echo getStockStatus($cookie['stock']); ?></td>
+                            <td>
+                                <?php 
+                                // IF ELSEIF ELSE - Stock Status
+                                if ($cookie['stock'] >= 50) {
+                                    echo 'Excellent';
+                                } elseif ($cookie['stock'] >= 30) {
+                                    echo 'Good';
+                                } elseif ($cookie['stock'] >= 15) {
+                                    echo 'Limited';
+                                } elseif ($cookie['stock'] > 0) {
+                                    echo 'Low';
+                                } else {
+                                    echo 'Out';
+                                }
+                                ?>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -307,6 +295,22 @@ function getStockStatus($stock) {
                     // IF
                     if ($cookie['category'] == 'Premium' && $premium_count < 4) {
                         $premium_count++; // OPERATORS
+                        
+                        // VARIABLES - Price Category
+                        $price_category = '';
+                        
+                        // SWITCH - Price Category Logic
+                        switch (true) {
+                            case ($cookie['price'] <= 150):
+                                $price_category = 'Budget Friendly';
+                                break;
+                            case ($cookie['price'] <= 195):
+                                $price_category = 'Standard';
+                                break;
+                            default:
+                                $price_category = 'Premium';
+                                break;
+                        }
                 ?>
                     <article class="product-card">
                         <!-- SHORTHAND ECHO -->
@@ -315,55 +319,13 @@ function getStockStatus($stock) {
                         <span class="product-badge"><?php echo $cookie['category']; ?></span>
                         <p class="product-price">₱<?php echo $cookie['price']; ?></p>
                         <p class="product-stock">Stock: <?php echo $cookie['stock']; ?> dozens</p>
-                        <p class="product-stock"><?php echo getPriceCategory($cookie['price']); ?></p>
+                        <p class="product-stock"><?php echo $price_category; ?></p>
                     </article>
                 <?php 
                     }
                 } 
                 ?>
             </section>
-        </section>
-
-        <section class="featured-section">
-            <h2>Limited Stock - Order Now!</h2>
-            <table class="cookie-table">
-                <thead>
-                    <tr>
-                        <th>Cookie Name</th>
-                        <th>Price</th>
-                        <th>Remaining Stock</th>
-                        <th>Alert Level</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    // FOREACH LOOP
-                    foreach ($cookies as $cookie) {
-                        // IF
-                        if ($cookie['stock'] < $low_stock) {
-                    ?>
-                        <tr>
-                            <!-- SHORTHAND ECHO -->
-                            <td><?php echo $cookie['name']; ?></td>
-                            <td>₱<?php echo $cookie['price']; ?></td>
-                            <td><?php echo $cookie['stock']; ?> dozens</td>
-                            <td>
-                                <?php 
-                                // IF ELSE
-                                if ($cookie['stock'] < 20) {
-                                    echo 'Very Low - Order Soon!';
-                                } else {
-                                    echo 'Low Stock';
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                    <?php 
-                        }
-                    } 
-                    ?>
-                </tbody>
-            </table>
         </section>
     </main>
 </body>
